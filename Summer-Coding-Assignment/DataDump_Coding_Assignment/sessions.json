@@ -1,0 +1,157 @@
+[{
+  "_id": {
+    "$oid": "609d1718dde08d9e0eb929d3"
+  },
+  "date": {
+    "$date": "2021-05-13T23:00:00Z"
+  },
+  "session_time": "11:00",
+  "client": {
+    "$oid": "609d149bdde08d9e0eb929ce"
+  },
+  "physiotherapist": {
+    "$oid": "609d15d2dde08d9e0eb929d1"
+  },
+  "fee": "€150",
+  "session_number": 0,
+  "attendance_duration": "60",
+  "type": "Massage Therapy",
+  "session_notes": "Massage therapy on stiff back and upper lips"
+},{
+  "_id": {
+    "$oid": "609d2e203f452f22841398b7"
+  },
+  "date": {
+    "$date": "2021-05-13T23:00:00Z"
+  },
+  "session_time": "13:00",
+  "client": {
+    "$oid": "609d59293f452f22841398b8"
+  },
+  "physiotherapist": {
+    "$oid": "609d15d2dde08d9e0eb929d1"
+  },
+  "fee": "€50",
+  "session_number": 1,
+  "attendance_duration": "60",
+  "type": "Exercise",
+  "session_notes": "Client Undertook Stamina building exercises, and cardio work"
+},{
+  "_id": {
+    "$oid": "609d3639656bc225e4209248"
+  },
+  "date": {
+    "$date": "2021-05-13T23:00:00Z"
+  },
+  "session_time": "15:00",
+  "client": {
+    "$oid": "609d59293f452f22841398b8"
+  },
+  "physiotherapist": {
+    "$oid": "609d15d2dde08d9e0eb929d1"
+  },
+  "fee": "€50",
+  "session_number": 2,
+  "attendance_duration": "60",
+  "type": "Exercise",
+  "session_notes": "Cardio work, and client given stretching routing to improve mobility. Client booked in for session on friday",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "609db3123f452f22841398c4"
+  },
+  "date": {
+    "$date": "2021-05-13T23:00:00Z"
+  },
+  "session_time": "09:00",
+  "client": {
+    "$oid": "609db2933f452f22841398c3"
+  },
+  "physiotherapist": {
+    "$oid": "609d61473f452f22841398b9"
+  },
+  "fee": "€75",
+  "session_number": 3,
+  "attendance_duration": "No Show",
+  "type": "Assesment",
+  "session_notes": "",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "609db3e83f452f22841398c5"
+  },
+  "date": {
+    "$date": "2021-05-20T23:00:00Z"
+  },
+  "session_time": "11:00",
+  "client": {
+    "$oid": "609db2933f452f22841398c3"
+  },
+  "physiotherapist": {
+    "$oid": "609d61473f452f22841398b9"
+  },
+  "fee": "€75",
+  "session_number": 4,
+  "attendance_duration": "45",
+  "type": "Assesment",
+  "session_notes": "Client assessed upon rescheduling, muscles slow to rebuild upon tear. Set up 12 week stretching and interfacing plan",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "609db5683f452f22841398c6"
+  },
+  "date": {
+    "$date": "2021-05-20T23:00:00Z"
+  },
+  "session_time": "11:00",
+  "client": {
+    "$oid": "609d7b6d3f452f22841398bc"
+  },
+  "physiotherapist": {
+    "$oid": "609d61473f452f22841398b9"
+  },
+  "fee": "€75",
+  "session_number": 5,
+  "attendance_duration": "30",
+  "type": "Check-Up",
+  "session_notes": "Assessed Client improvement in joint movement and muscle pain through stretching routine. Client has been cleared to go back to sports ",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "609db6073f452f22841398c7"
+  },
+  "date": {
+    "$date": "2021-05-25T23:00:00Z"
+  },
+  "session_time": "15:00",
+  "client": {
+    "$oid": "609d149bdde08d9e0eb929ce"
+  },
+  "physiotherapist": {
+    "$oid": "609d15d2dde08d9e0eb929d1"
+  },
+  "fee": "€150",
+  "session_number": 6,
+  "attendance_duration": "60",
+  "type": "Massage Therapy",
+  "session_notes": "Massage therapy on lower back, possible ultra scan needed"
+},{
+  "_id": {
+    "$oid": "609db6d03f452f22841398c8"
+  },
+  "date": {
+    "$date": "2021-05-30T23:00:00Z"
+  },
+  "session_time": "10:00",
+  "client": {
+    "$oid": "609d149bdde08d9e0eb929ce"
+  },
+  "physiotherapist": {
+    "$oid": "609d15badde08d9e0eb929d0"
+  },
+  "fee": "€350",
+  "session_number": 7,
+  "attendance_duration": "60",
+  "type": "Lasers",
+  "session_notes": "Client under went laser scan technology upon recomendation from Pat, due to clients continued  remission "
+}]

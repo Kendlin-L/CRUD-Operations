@@ -1,0 +1,454 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Coding Assignment</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body style="overflow-x: hidden;">
+  
+  <div class="container"> 
+  <nav class="navbar navbar-inverse">
+  <a class="navbar-brand" href="/">Home</a>
+  
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+   <ul class="nav navbar-nav">
+      <li ><a href="/clients">Clients</a></li>
+      <li><a href="/physio">Physios</a></li>
+      <li class="active"><a href="/sessions">Sessions</a></li>
+      
+    </ul>
+</nav>
+   <div id="bottomParameters" style="display:inline"> 
+<div class="input-group mb-3 ">
+          
+   
+         
+    <div class="input-group-prepend">
+             <select class="custom-select" hidden="true" id="databaseSearchSelect">
+                <option value="sessions" selected>Type</option>
+            </select>
+        </div>
+       
+    <input class="form-control py-2 border-left-0 border" type="search" placeholder="Search by type for session ..." id="databaseSearchFilter">   
+          <span> 
+            <button class="btn btn-primary" style="position: relative; left: 100%; bottom:34px" type="button" id="databaseSearch">Find</button>
+             </span>
+             <span>
+               <button class="btn btn-primary mr-5" data-toggle="modal" style="position: relative; left: 1020px; bottom: 32px" data-target="#addModal">Add</button>
+               </span>
+</div>
+
+
+    <table class="table table-hover table-striped" id="sessionsList">
+      <thead>
+        <tr>  
+          <th style="width: 20%">_id</th>
+           <th style="width: 20%">date</th>
+          <th style="width: 20%">session_time</th>
+          <th style="width: 20%">client</th>
+           <th style="width: 20%">physiotherapist</th>
+            <th style="width: 20%">fee</th>
+          <th style="width: 20%">number</th>
+          <th class="text-center" style="width: 15%">Options</th>
+        </tr>
+      </thead>
+      <tbody >
+        {{#each results}}
+        <tr  style="max-height: 1%;" >
+             <td style="width: 20%;">{{_id}}</td>
+           <td style="width: 100%; line-height: 18px; overflow: hidden; " >{{date}}</td>
+          <td style="width: 20%">{{session_time}}</td>
+            <td style="width: 20%">{{client}}</td>
+          <td style="width: 20%">{{physiotherapist}}</td>
+           <td style="width: 20%">{{fee}}</td>
+           <td style="width: 20%">{{session_number}}</td>
+           
+          <td class="text-right" style="width: 15%">
+              <a href="javascript:void(0);" style="width: 100%" class="btn btn-sm btn-danger view" data-_id="{{ _id }}"   data-session_time="{{ session_time }}" data-date="{{ date }}" data-client="{{ client }}" data-physio="{{ physiotherapist }}"  data-fee="{{ fee }}" data-attendance_duration="{{ attendance_duration }}" data-session_number="{{ session_number}}" data-type="{{ type }}"  data-notes="{{ session_notes }}"  >View</a>
+              <a href="javascript:void(0);" style="width: 100%" class="btn btn-sm btn-danger update" data-_id="{{ _id }}"   data-session_time="{{ session_time }}" data-date="{{ date }}" data-client="{{ client }}" data-physio="{{ physiotherapist }}"  data-fee="{{ fee }}" data-attendance_duration="{{ attendance_duration }}" data-session_number="{{ session_number}}" data-type="{{ type }}"  data-notes="{{ session_notes }}"  >Update</a>
+           
+            <a href="javascript:void(0);" style="width: 100%"  class="btn btn-sm btn-danger delete" data-_id="{{ _id }}" data-session_number="{{ session_number }}"  data-surname="{{ surname }}">Delete</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    
+
+    <form id="addForm" action="/sessions" method="POST">
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Record New Session</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+             <div class="form-group">
+                   <input type="text" name="date" class="form-control" placeholder="date" >
+               </div>
+               <div class="form-group">
+                   <input type="text" name="session_time" class="form-control" placeholder="time" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="client" class="form-control" placeholder="client" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="physiotherapist" class="form-control" placeholder="physiotherapist" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="fee" class="form-control" placeholder="fee" required>
+               </div>
+                <div class="form-group">
+                   <input type="number" name="session_number" class="form-control" placeholder="session_number" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="attendance_duration" class="form-control" placeholder="attendance/duration" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="type" class="form-control" placeholder="session type" >
+               </div>
+               <div class="form-group">
+                   <input type="text" name="session_notes" class="form-control" placeholder="notes" required>
+               </div>
+               
+               
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+             </div>
+           </div>
+         </div>
+        </div>
+    </form>
+   
+       <div class="modal fade" id="retrieveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Session Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <div class="container-fluid">
+          
+                  <div  id="_id"></div>
+               
+                   <div id="date" ></div>
+                   <div  id="session_time"  ></div>
+                  <div id="client" ></div>
+                    <div id="physio" ></div>
+                   <div id="fee" ></div>
+                    <div  id="session_number"  ></div>
+                   <div id="attendance_duration" ></div>
+                   <div id="type" ></div>
+                   <div  id="session_notes"  ></div>
+                  
+              </div>
+            </div>
+            <div class="modal-footer">
+             
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+            </div>
+          </div>
+        </div>
+       </div>
+
+       <form id="updateForm" action="/sessions" method="PUT"> <!-- we can't PUT with HTML form - this is just an attribute  picked up by AjAX -->
+       <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Session Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             
+                 <div class="form-group " >
+                  <label for="date">Date</label>
+                  <input type="text" name="date" class="form-control date" placeholder="date" >
+              </div>
+              <div class="form-group " >
+                  <label for="session_time">Session Time</label>
+                  <input type="text" name="session_time" class="form-control session_time " placeholder="time" >
+              </div>
+               <div class="form-group">
+                   <label for="client">Client ID</label>
+                   <input type="text" name="client" class="form-control client" placeholder="client" >
+               </div>
+              <div class="form-group">
+                  <label for="physiotherapist">Physiotherapist ID</label>
+                  <input type="text" name="physiotherapist" class="form-control physiotherapist" placeholder="Physiotherapist" >
+              </div>
+               <div class="form-group">
+                   <label for="fee">Fee</label>
+                   <input type="text" name="fee" class="form-control fee" placeholder="fee" >
+               </div>
+               <div class="form-group">
+                   <label for="session_number">Session Number</label>
+                   <input type="text" name="session_number" class="form-control session_number" placeholder="Session Number" >
+               </div>
+               <div class="form-group">
+                      <label for="attendance_duration">Attendance / Duration</label>
+                   <input type="text" name="attendance_duration" class="form-control attendance_duration" placeholder="Attendance / Duration" >
+               </div>
+               <div class="form-group">
+                      <label for="type">Type</label>
+                   <input type="text" name="type" class="form-control type" placeholder="type" >
+               </div>
+               <div class="form-group">
+                      <label for="session_notes">Session Notes</label>
+                   <input type="text" name="session_notes" class="form-control session_notes" placeholder="Notes" >
+               </div>
+               
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="sessionId" class="id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+    </form>
+
+
+        <form id="deleteForm" action="/sessions" method="DELETE">
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Delete Session</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   </div>
+                   <div class="modal-body" id = "modal-body">
+                       
+                   </div>
+                   <div class="modal-footer">
+                        <input type="hidden" name="sessionId" class="form-control id" required>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+ 
+    
+ <div class="modal fade" id="deletedAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="alert alert-success" role="alert">
+                <strong>Session Deleted!</strong>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addedAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="alert alert-success" role="alert">
+                <strong>Session Recorded!</strong>
+            </div>
+        </div>
+    </div>
+   </div>
+  
+<script> $(document).ready(function(){
+
+var addForm = $("#addForm");
+        addForm.submit(function(e){
+            e.preventDefault(); 
+            $.ajax({
+                type: addForm.attr('method'),
+                url:  addForm.attr('action'),
+                data: addForm.serialize(), // get data from the form!
+                success: function (data) {
+                    console.log('Update successful!');
+                    
+                    $('#addedAlert').modal('show');
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/sessions')
+                    }, 3000);
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                  
+                    $('#errorAlert').modal('show');
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/sessions')
+                    }, 3000);
+                },
+            });
+            $('#addModal').modal('hide');
+        });
+
+  
+
+    $('#sessionsList').on('click','.view',function(){
+            var session_id = $(this).data('_id');
+            var session_date = $(this).data('date');
+            var session_session_time = $(this).data('session_time');
+            var session_client = $(this).data('client');
+            var session_physio = $(this).data('physio');
+            var session_fee = $(this).data('fee');
+            var session_session_number = $(this).data('session_number');
+            var session_attendance_duration = $(this).data('attendance_duration');
+            var session_type = $(this).data('type');
+            var session_notes = $(this).data('notes');
+        
+       
+            $('#retrieveModal').modal('show');
+            $('#_id').html("<b>Id:</b> "+session_id);
+            $('#date').html("<b>Date:</b> "+session_date);
+            $('#session_time').html("<b>Session time:</b> "+session_session_time);
+            $('#client').html("<b>Cleint ID:</b> "+session_client);
+            $('#physio').html("<b>Physiotherapist ID:</b> "+session_physio);
+            $('#fee').html("<b>Fee:</b> "+session_fee)
+            $('#session_number').html("<b>Number:</b> "+session_session_number);
+            $('#attendance_duration').html("<b>Attendance / Duration:</b> "+session_attendance_duration);
+            $('#type').html("<b>Type:</b> "+session_type);
+            $('#session_notes').html("<b>Notes:</b> "+session_notes);
+       
+        });
+        $('#sessionsList').on('click','.update',function(){
+            var session_id = $(this).data('_id');
+            var session_date = $(this).data('date');
+            var session_session_time = $(this).data('session_time');
+            var session_client = $(this).data('client');
+            var session_physio = $(this).data('physio');
+            var session_fee = $(this).data('fee');
+            var session_session_number = $(this).data('session_number');
+            var session_attendance_duration = $(this).data('attendance_duration');
+            var session_type = $(this).data('type');
+            var session_notes = $(this).data('notes');
+        
+       
+            $('#updateModal').modal('show');
+            $('.id').val(session_id);
+            $('.date').val(session_date);
+            $('.session_time').val(session_session_time);
+            $('.client').val(session_client);
+            $('.physiotherapist').val(session_physio);
+            $('.fee').val(session_fee)
+            $('.session_number').val(session_session_number);
+            $('.attendance_duration').val(session_attendance_duration);
+            $('.type').val(session_type);
+            $('.session_notes').val(session_notes);
+       
+        });
+
+        
+var updateForm = $("#updateForm");
+        updateForm.submit(function(e){
+            e.preventDefault(); // prevent handling the normal form submit click!
+            var _id = updateForm.find('input[name="sessionId"]').val();   
+            var check = updateForm.serialize();
+            console.log(check)
+
+            $.ajax({
+                type: updateForm.attr('method'),
+                url:  updateForm.attr('action')+"/"+_id,
+                data: updateForm.serialize(), // get data from form!
+                success: function (data) {
+                    console.log('Update successful!');
+                    // make a timed Bootstrap Alert on Success
+                    // then re-direct to "/"
+                 
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/sessions')
+                    }, 3000);
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    // make a timed Bootstrap Alert on Error
+                    // then re-direct to "/"
+           
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/sessions')
+                    }, 3000);
+                },
+            });
+            $('#updateModal').modal('hide');
+        });
+
+        $('#sessionsList').on('click','.delete',function(){
+            var session_id = $(this).data('_id');
+            var session_number = $(this).data('session_number');
+            
+          
+            $("#deleteModal .modal-body").html("Are You Sure You Want to Delete Session Number: "+session_number+" ID: "+session_id+" from Database");
+            $('#deleteModal').modal('show');
+            $('.id').val(session_id);
+        });
+        var deleteForm = $("#deleteForm");
+        deleteForm.submit(function(e){
+            
+
+            e.preventDefault();  // prevent handling the normal form submit click!
+            var _id = deleteForm.find('input[name="sessionId"]').val();   
+            $.ajax({
+                type: deleteForm.attr('method'),
+                url:  deleteForm.attr('action')+"/"+_id,
+                success: function (data) {
+                    console.log('Deletion successful!');
+                 
+
+                    $('#deletedAlert').modal('show');
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/sessions')
+                    }, 3000);
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+               
+                 
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/')
+                    }, 3000);
+                },
+            });
+            $('#deleteModal').modal('hide');
+        });
+        
+
+       
+
+        $("#databaseSearch").on('click',function() {
+            var search = $("#databaseSearchFilter").val().replace(/[|&;$%@"<>()+,^  ]/g, "");
+            if (search) {
+                $(location).attr('href', '/'+$("#databaseSearchSelect").val()+'/'+search);
+            } else {
+                $(location).attr('href', '/');
+            }
+        });
+
+
+  
+        
+})
+</script>
+</body>
+</html>
+
+
+{{!-- RESOURCES USED
+
+
+  -JQuey/ Ajax functions for Creating, Searching and Deleting based off of 
+     
+       -https://www.w3schools.com/bootstrap/bootstrap_navbar.asp
+       -https://www.w3schools.com/bootstrap/
+      
+
+
+ --}}

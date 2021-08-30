@@ -1,0 +1,561 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Coding Assignment</title>
+    
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body  style="overflow-x: hidden;">
+  
+  <div class="container"> 
+  <nav class="navbar navbar-inverse">
+  <a class="navbar-brand" href="/">Home</a>
+  
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+   <ul class="nav navbar-nav">
+      <li class="active"><a href="/clients">Clients</a></li>
+      <li><a href="/physio">Physios</a></li>
+      <li><a href="/sessions">Sessions</a></li>
+      
+    </ul>
+</nav>
+    {{!-- <h2><a class="breadcrumb-item text-dark" href="/clients">Client Database</a> <span class="badge badge-secondary" id="databaseFilterNotisce"></span></h2> --}}
+  <div id="bottomParameters" style="display:inline"> 
+<div class="input-group mb-3 ">
+          
+   
+         
+    <div class="input-group-prepend">
+             <select class="custom-select" hidden="true" id="databaseSearchSelect">
+                <option value="clients" selected>Email</option>
+            </select>
+        </div>
+       
+    <input class="form-control py-2 border-left-0 border" type="search" placeholder="Search by email for client ..." id="databaseSearchFilter">   
+          <span> 
+            <button class="btn btn-primary" style="position: relative; left: 100%; bottom:34px" type="button" id="databaseSearch">Find</button>
+             </span>
+             <span>
+               <button class="btn btn-primary mr-5" data-toggle="modal" style="position: relative; left: 1020px; bottom: 32px" data-target="#addModal">Add</button>
+               </span>
+</div>
+
+  </div>
+
+    <!-- Clients Table -->
+    <table class="table table-hover table-striped" id="clientsList">
+      <thead>
+        <tr>  
+          <th style="width: 20%">_id</th>
+           <th style="width: 20%">title</th>
+          <th style="width: 20%">first_name</th>
+          <th style="width: 20%">surname</th>
+           <th style="width: 20%">mobile</th>
+            <th style="width: 20%">home_number</th>
+          <th style="width: 20%">email</th>
+          <th class="text-center" style="width: 15%">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each results}}
+        <tr >
+             <td style="width: 20%">"{{_id}}"</td>
+           <td style="width: 20%">{{title}}</td>
+          <td style="width: 20%">{{first_name}}</td>
+            <td style="width: 20%">{{surname}}</td>
+          <td style="width: 20%">{{mobile}}</td>
+           <td style="width: 20%">{{home_phone}}</td>
+           <td style="width: 20%">{{email}}</td>
+           
+          <td class="text-right" >
+              <a href="javascript:void(0);" style="width: 100%" class="btn btn-sm btn-danger view" data-_id="{{ _id }}" data-title="{{ title }}"   data-first_name="{{ first_name }}" data-surname="{{ surname }}" data-mobile="{{ mobile }}" data-home_number="{{ home_phone }}"  data-email="{{ email }}" data-address1="{{ address.address_line1 }}" data-address2="{{ address.address_line2 }}"  data-town="{{ address.town }}" data-county="{{ address.county }}" data-eircode="{{ address.eircode }}" data-birth_date="{{ add_info.birth_date }}" data-parent_guardian="{{ add_info.parent_guardian }}" data-leave_message="{{ add_info.leave_message }}" data-registered="{{ add_info.registered }}" data-doctor="{{ add_info.doctor }}"data-referred="{{ add_info.referred_by }}">View</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger update" data-_id="{{ _id }}" data-title="{{ title }}"   data-first_name="{{ first_name }}" data-surname="{{ surname }}" data-mobile="{{ mobile }}" data-home_number="{{ home_phone }}"  data-email="{{ email }}" data-address1="{{ address.address_line1 }}" data-address2="{{ address.address_line2 }}"  data-town="{{ address.town }}" data-county="{{ address.county }}" data-eircode="{{ address.eircode }}" data-birth_date="{{ add_info.birth_date }}" data-parent_guardian="{{ add_info.parent_guardian }}" data-leave_message="{{ add_info.leave_message }}" data-registered="{{ add_info.registered }}" data-doctor="{{ add_info.doctor }}"data-referred="{{ add_info.referred_by }}">Update</a>
+            <a href="javascript:void(0);" style="width: 100%" class="btn btn-sm btn-danger delete" data-_id="{{ _id }}" data-first_name="{{ first_name }}"  data-surname="{{ surname }}">Delete</a>
+
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div id="bottomParameters" >
+   <div class="input-group mb-3">
+      
+
+   
+        
+        
+    </div> 
+       </div>
+
+    <form id="addForm" action="/clients" method="POST">
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add New Client</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+             <div class="form-group">
+                   <input type="text" name="title" class="form-control" placeholder="title" >
+               </div>
+               <div class="form-group">
+                   <input type="text" name="first_name" class="form-control" placeholder="first name" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="surname" class="form-control" placeholder="surname" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="mobile" class="form-control" placeholder="mobile" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="home_phone" class="form-control" placeholder="home phone" required>
+               </div>
+                <div class="form-group">
+                   <input type="text" name="email" class="form-control" placeholder="email" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="address_line1" class="form-control" placeholder="address line 1" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="address_line2" class="form-control" placeholder="address line 2" >
+               </div>
+               <div class="form-group">
+                   <input type="text" name="town" class="form-control" placeholder="town" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="county" class="form-control" placeholder="county" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="eircode" class="form-control" placeholder="eircode" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="birth_date" class="form-control" placeholder="D.O.B yy/mm/dd" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="parent_guardian" class="form-control" placeholder="parent name" required>
+               </div>
+               <div class="form-group">
+               <label for="leave_message">Leave a message</label>
+                   <input type="checkbox" style= "width:10px; height:10px;"name="leave_message" class="form-control"  >
+               </div>
+               <div class="form-group">
+                   <input type="text" name="registered" class="form-control" placeholder="registered on yyyy-mm-dd" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="doctor" class="form-control" placeholder="doctor" required>
+               </div>
+               <div class="form-group">
+                   <input type="text" name="referred_by" class="form-control" placeholder="referral from" required>
+               </div>
+               
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+             </div>
+           </div>
+         </div>
+        </div>
+    </form>
+ 
+    
+
+       <div class="modal fade" id="retrieveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Client Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <div class="tests">
+                  <div  id="_id" ></div>
+                   <div  id="title" ></div>
+                   <div id="first_name"></div>
+                   <div  id="surname" ></div>
+                  <div id="mobile"></div>
+                    <div id="home_number"></div>
+                   <div id="email"></div>
+                   <div id="address1"></div>
+                   <div id="address2"></div>
+                   <div  id="town" ></div>
+                  <div id="county"></div>
+                   <div id="eircode"></div>
+                   <div id="birth_date"></div>
+                   <div id="parent_guardian"></div>
+                   <div id="leave_message"></div>
+                   <div  id="registered" ></div>
+                  <div id="doctor"></div>
+                   <div id="referred"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+            </div>
+          </div>
+        </div>
+       </div>
+
+<form id="updateForm" action="/clients" method="PUT"> <!-- we can't PUT with HTML form - this is just an attribute  picked up by AjAX -->
+       <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Client Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                 <div class="form-group " >
+                  <label for="title">Title</label>
+                  <input type="text" name="title" class="form-control title" placeholder="title" >
+              </div>
+              <div class="form-group " >
+                  <label for="first_name">First Name</label>
+                  <input type="text" name="first_name" class="form-control first_name " placeholder="first name" >
+              </div>
+               <div class="form-group">
+                   <label for="surname">Surname</label>
+                   <input type="text" name="surname" class="form-control surname" placeholder="surname" >
+               </div>
+               <div class="form-group">
+                   <label for="mobile">Mobile</label>
+                   <input type="text" name="mobile" class="form-control mobile" placeholder="mobile" >
+               </div>
+              <div class="form-group">
+                  <label for="home_phone">Home Phone</label>
+                  <input type="text" name="home_phone" class="form-control home_number" placeholder="home phone" >
+              </div>
+               <div class="form-group">
+                   <label for="email">Email</label>
+                   <input type="text" name="email" class="form-control email" placeholder="email" >
+               </div>
+               <div class="form-group">
+                   <label for="address1">Address Line 1</label>
+                   <input type="text" name="address1" class="form-control address1" placeholder="address line 1" >
+               </div>
+               <div class="form-group">
+                      <label for="address2">Address Line 2</label>
+                   <input type="text" name="address2" class="form-control address2" placeholder="address line 2" >
+               </div>
+               <div class="form-group">
+                      <label for="town">Town</label>
+                   <input type="text" name="town" class="form-control town" placeholder="town" >
+               </div>
+               <div class="form-group">
+                      <label for="county">County</label>
+                   <input type="text" name="county" class="form-control county" placeholder="county" >
+               </div>
+               <div class="form-group">
+                      <label for="eircode">Eircode</label>
+                   <input type="text" name="eircode" class="form-control eircode" placeholder="eircode" >
+               </div>
+               <div class="form-group">
+                      <label for="birth_date">D.O.B yy/mm/dd</label>
+                   <input type="text" name="birth_date" class="form-control birth_date" placeholder="D.O.B yy/mm/dd" >
+               </div>
+               <div class="form-group">
+                      <label for="parent_guardian">Parent/Guardian</label>
+                   <input type="text" name="parent_guardian" class="form-control parent_guardian" placeholder="parent name" >
+               </div>
+               <div class="form-group">
+               <label for="leave_message">Leave a message</label>
+                   <input type="checkbox" style= "width:10px; height:10px;"name="leave_message" class="form-control leave_message"  >
+               </div>
+               <div class="form-group">
+                      <label for="registered">Registered on yyyy-mm-dd</label>
+                   <input type="text" name="registered" class="form-control registered" placeholder="registered on yyyy-mm-dd" >
+               </div>
+               <div class="form-group">
+                      <label for="doctor">Doctor</label>
+                   <input type="text" name="doctor" class="form-control doctor" placeholder="doctor" >
+               </div>
+               <div class="form-group">
+                      <label for="referred_by">Referral From</label>
+                   <input type="text" name="referred_by" class="form-control referred_by" placeholder="referral from" >
+               </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="clientId" class="id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+    </form>
+        
+
+
+        <form id="deleteForm" action="/clients" method="DELETE"> 
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Delete Client</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   </div>
+                   <div class="modal-body" id = "modal-body">
+                        
+                   </div>
+                   <div class="modal-footer">
+                        <input type="hidden" name="clientId" class="form-control id" required>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </form>
+ 
+   
+ <div class="modal fade" id="deletedAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="alert alert-success" role="alert">
+                <strong>Client Deleted!</strong>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addedAlert" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="alert alert-success" role="alert">
+                <strong>Client Added!</strong>
+            </div>
+        </div>
+    </div>
+   </div>
+  
+<script> $(document).ready(function(){
+
+var addForm = $("#addForm");
+        addForm.submit(function(e){
+            e.preventDefault(); // prevent handling the normal form submit click!
+            $.ajax({
+                type: addForm.attr('method'),
+                url:  addForm.attr('action'),
+                data: addForm.serialize(), // gets the client data to be added
+                success: function (data) {
+                    console.log('Update successful!');//if successful redirects to the clients
+                    
+                    $('#addedAlert').modal('show');
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/clients')
+                    }, 3000);
+                },
+                error: function (data) {
+                    console.log('An error occurred.'); // error will also redirect to client page
+                 
+           
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/clients')
+                    }, 3000);
+                },
+            });
+            $('#addModal').modal('hide');
+        });
+
+
+
+    $('#clientsList').on('click','.view',function(){
+
+      //gets specific data from view button clicked
+            var client_id = $(this).data('_id');
+            var client_title = $(this).data('title');
+            var client_home_number = $(this).data('home_number');
+            var client_first_name = $(this).data('first_name');
+            var client_surname = $(this).data('surname');
+            var client_mobile = $(this).data('mobile');
+            var client_email = $(this).data('email');
+            var client_address1 = $(this).data('address1');
+            var client_address2 = $(this).data('address2');
+            var client_town = $(this).data('town');
+            var client_county = $(this).data('county');
+            var client_eircode = $(this).data('eircode');
+            var client_birth_date = $(this).data('birth_date');
+            var client_parent_guardian = $(this).data('parent_guardian');
+            var client_leave_message = $(this).data('leave_message');
+            var client_registered = $(this).data('registered');
+            var client_doctor = $(this).data('doctor');
+            var client_referred = $(this).data('referred');
+
+            //passes variables into the modal to show the full details of client document
+            $('#retrieveModal').modal('show');
+            $('#_id').html("<b>Id:</b> "+client_id);
+             $('#title').html("<b>Title:</b> "+client_title);
+            $('#home_number').html("<b>Home Number:</b> "+client_home_number);
+            $('#first_name').html("<b>First Name:</b> "+client_first_name);
+            $('#surname').html("<b>Surname:</b> "+client_surname);
+            $('#mobile').html("<b>Mobile:</b> "+client_mobile);
+            $('#email').html("<b>Email:</b> "+client_email);
+            $('#address1').html("<b>Address Line 1:</b> "+client_address1);
+            $('#address2').html("<b>Address Line 2:</b> "+client_address2);
+            $('#town').html("<b>Town:</b> "+client_town);
+            $('#county').html("<b>County:</b> "+client_county);
+            $('#eircode').html("<b>Eircode:</b> "+client_eircode);
+            $('#birth_date').html("<b>Birth Date:</b> "+client_birth_date);
+            $('#parent_guardian').html("<b>Parent / Guardian:</b> "+client_parent_guardian);
+            $('#leave_message').html("<b>Leave Message:</b> "+client_leave_message);
+            $('#registered').html("<b>Registered On:</b> "+client_registered);
+            $('#doctor').html("<b>Doctor:</b> "+client_doctor);
+            $('#referred').html("<b>Referred By:</b> "+client_referred);
+        });
+
+        
+
+       
+
+  $('#clientsList').on('click','.update',function(){
+            var client_id = $(this).data('_id');
+            var client_title = $(this).data('title')
+            var client_first_name = $(this).data('first_name');
+            var client_home_number= $(this).data('home_number');
+            var client_surname = $(this).data('surname');
+            var client_mobile = $(this).data('mobile');
+            var client_email = $(this).data('email');
+            var client_address1 = $(this).data('address1');
+            var client_address2 = $(this).data('address2');
+            var client_town = $(this).data('town');
+            var client_county = $(this).data('county');
+            var client_eircode = $(this).data('eircode');
+            var client_birth_date = $(this).data('birth_date');
+            var client_parent_guardian = $(this).data('parent_guardian');
+            var client_leave_message = $(this).data('leave_message');
+            var client_registered = $(this).data('registered');
+            var client_doctor = $(this).data('doctor');
+            var client_referred = $(this).data('referred');
+            // alert (quotation_id+": "+ quotation_quote+" "+quotation_author);
+            $('#updateModal').modal('show');
+                $('.id').val(client_id);
+                  $('.title').val(client_title)
+            $('.first_name').val(client_first_name);
+            $('.home_number').val(client_home_number);
+            $('.surname').val(client_surname)
+            $('.mobile').val(client_mobile);
+            $('.email').val(client_email);
+            $('.address1').val(client_address1);
+            $('.address2').val(client_address2);
+            $('.town').val(client_town);
+            $('.county').val(client_county);
+            $('.eircode').val(client_eircode);
+            $('.birth_date').val(client_birth_date);
+            $('.parent_guardian').val(client_parent_guardian);
+            $('.leave_message').val(client_leave_message);
+            $('.registered').val(client_registered);
+            $('.doctor').val(client_doctor);
+            $('.referred_by').val(client_referred);
+        });
+        
+ var updateForm = $("#updateForm");
+        updateForm.submit(function(e){
+            e.preventDefault(); // prevent handling the normal form submit click!
+            var id = updateForm.find('input[name="clientId"]').val();   
+            var check = updateForm.serialize();
+            console.log(check)
+
+            $.ajax({
+                type: updateForm.attr('method'),
+                url:  updateForm.attr('action')+"/"+id,
+                data: updateForm.serialize(), // get data from form!
+                success: function (data) {
+                    console.log('Update successful!');
+                    // make a timed Bootstrap Alert on Success
+                    // then re-direct to "/"
+                 
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/clients')
+                    }, 3000);
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    // make a timed Bootstrap Alert on Error
+                    // then re-direct to "/"
+           
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/clients')
+                    }, 3000);
+                },
+            });
+            $('#updateModal').modal('hide');
+        });
+
+
+
+        $('#clientsList').on('click','.delete',function(){
+            var client_id = $(this).data('_id');
+            var client_first_name = $(this).data('first_name');
+            var client_surname = $(this).data('surname');
+          
+            $("#deleteModal .modal-body").html("Are You Sure You Want to Delete "+client_first_name+" "+client_surname+" from Database");
+            $('#deleteModal').modal('show');
+            $('.id').val(client_id);
+        });
+        var deleteForm = $("#deleteForm");
+        deleteForm.submit(function(e){
+           
+
+
+            e.preventDefault();  // prevent handling the normal form submit click!
+            var _id = deleteForm.find('input[name="clientId"]').val();   
+            $.ajax({
+                type: deleteForm.attr('method'),
+                url:  deleteForm.attr('action')+"/"+_id,
+                success: function (data) {
+                    console.log('Deletion successful!');
+                  
+
+                    $('#deletedAlert').modal('show');
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/clients');
+                    }, 3000);
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+              
+               
+                    var timer = setTimeout(function() {
+                        $(location).attr('href', '/clients');
+                    }, 3000);
+                },
+            });
+            $('#deleteModal').modal('hide');
+        });
+        
+
+       
+        //query to allow for clients to be retrieved by email
+        $("#databaseSearch").on('click',function() {
+            var search = $("#databaseSearchFilter").val().replace(/[|&;$%@"<>()+,^  ]/g, "");
+            if (search ) {
+                $(location).attr('href', '/'+$("#databaseSearchSelect").val()+'/'+search);
+            } else {
+                $(location).attr('href', '/clients');
+            }
+        });
+
+})
+</script>
+</body>
+</html>
+
+{{!-- RESOURCES USED
+
+
+  -JQuey/ Ajax functions for Creating, Searching and Deleting based off of
+    
+       -https://www.w3schools.com/bootstrap/bootstrap_navbar.asp
+       -https://www.w3schools.com/bootstrap/
+      
+
+
+ --}}
